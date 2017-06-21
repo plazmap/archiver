@@ -14,7 +14,7 @@ $container['renderer'] = function() {
 };
 $container['database'] = function () {
 	global $cfg;
-	return new Sqlite3($cfg['db']);
+	return new PDO('sqlite:'.$cfg['db']);
 };
 
 $app->get('/hello/{name}', function ($request, $response, $args) {
@@ -28,19 +28,15 @@ $app->get('/register', function ($request, $response, $args) {
 $app->post('/register', function ($request, $response, $args) {
 	$body = $request->getParsedBody();
 
-	$stmt = $this->database->prepare('insert into user (name, password, created_at) values (:name, :password, :created_at)');
+    $stmt = $this->database->prepare('insert into user (name, password, created_at) values (:name, :password, :created_at)');
 	if ($stmt === false) {
 		return $this->renderer->render($response, '/register.php', [
 			'err' => $this->database->lastErrorMsg(),
 		]);
 	}
 
-	$stmt->bindValue(':name', $body['login']);
-	$stmt->bindValue(':password', password_hash($body['password'], PASSWORD_BCRYPT));
-	$stmt->bindValue(':created_at', date(DATE_RFC3339));
-	$stmt->execute();
-
-	echo 'ok';
+     $stmt->execute(array($body['login'], password_hash($body['password'], PASSWORD_BCRYPT), date(DATE_RFC3339)));
+        return $this->renderer->render($response, '/register_ok.php');;
 });
 
 $app->run();
