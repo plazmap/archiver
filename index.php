@@ -21,6 +21,28 @@ $app->get('/hello/{name}', function ($request, $response, $args) {
     return $this->renderer->render($response, '/hello.php', $args);
 });
 
+
+$app->get('/login', function ($request, $response, $args) {
+    return $this->renderer->render($response, '/login.php', $args);
+});
+
+
+$app->post('/login', function ($request, $response, $args) {
+    $body = $request->getParsedBody();
+
+    $userinfo=[];
+    $res = $this->database->query('SELECT name, password FROM user');
+    while ($row = $res->fetchArray()){
+        $userinfo=$row ;
+    }
+    foreach ($userinfo as $useri){
+        if ($userinfo['name']==$body['login'] && password_verify($body['login'],$userinfo['password'])){
+            echo 'yep' ;
+        }
+    }
+    echo 'nope' ; 
+});
+
 $app->get('/register', function ($request, $response, $args) {
     return $this->renderer->render($response, '/register.php');
 });
