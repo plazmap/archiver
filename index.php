@@ -26,21 +26,19 @@ $app->get('/login', function ($request, $response, $args) {
     return $this->renderer->render($response, '/login.php', $args);
 });
 
-
 $app->post('/login', function ($request, $response, $args) {
     $body = $request->getParsedBody();
 
-    $userinfo=[];
-    $res = $this->database->query('SELECT name, password FROM user');
-    while ($row = $res->fetchArray()){
-        $userinfo=$row ;
-    }
-    foreach ($userinfo as $useri){
-        if ($userinfo['name']==$body['login'] && password_verify($body['login'],$userinfo['password'])){
-            echo 'yep' ;
-        }
-    }
-    echo 'nope' ; 
+    $user =[];
+    $stmt = $this->database->prepare('select name, password from user where name = ?');
+    $stmt->execute(array($body['login']));
+    $user = $stmt->fetch();
+
+    if (password_verify($body['password'],$user['password'])){
+        echo 'yep';
+    }else{
+        echo 'nope';
+    }        
 });
 
 $app->get('/register', function ($request, $response, $args) {
