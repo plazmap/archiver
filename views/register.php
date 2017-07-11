@@ -1,7 +1,18 @@
- <?php if (isset($errors)) {
-   ?><p><?php echo $errors?></p>
-<?php } ?>
-
+<?php 
+if (isset($errs)) {
+?>
+<ul>
+<?php 
+    foreach ($errs as $err){
+?>
+        <li> <?= $err ?> </li>
+<?php 
+    }
+?>
+</ul>
+<?php 
+}
+?>
 <form method="POST">
     <input type="text" name="login" placeholder="login" required>
     <input type="password" name="password" placeholder="password" required>
