@@ -17,6 +17,20 @@ $container['database'] = function () {
     return new PDO('sqlite:'.$cfg['db']);
 };
 
+$app->get('/', function ($request, $response, $args) {
+    return $this->renderer->render($response, '/home.php', $args);
+});
+
+$app->get('/home', function ($request, $response, $args) {
+    return $this->renderer->render($response, '/home.php', $args);
+});
+
+$app->get('/stupid', function ($request, $response, $args) {
+    return $this->renderer->render($response, '/stupid.php', $args);
+});
+
+
+
 $app->get('/hello/{name}', function ($request, $response, $args) {
     return $this->renderer->render($response, '/hello.php', $args);
 });

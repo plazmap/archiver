@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    
     <title> Plazma's toy </title>    
     <style>
 
@@ -52,28 +51,12 @@ div.main{
     </div>
 
     <div class="main">
-<?php
-if (isset($errs)){
-?>
-<ul>
-<?php
-    foreach ($errs as $err){
-?>
-    <li> Connection with server lost. Please try again later.(<?=$err ?>) </li>
-<?php
-    }
-?>
-</ul>
-<?php
-}
-?>
+        <h1> Plazma's Website </h1> 
+        <h2> Welcome, mighty traveller </h2>
 
-        <form  method="POST">
-            <input type="text" name="login" placeholder="login">
-            <input type="password" name="password" placeholder="password">
-            <input type="submit" value="login">
-        </form>
-
+        <p> Bla. Blablablablablabla. Bla ? BLA ! Blablablablablabla. <br/> Blaaaaaa ..... Bla. <br/> Blablablablablabla ? :'( <br/> BLABLA oO <br/>
+    Blou. <br/> <br/> The end. </p>
+    
     </div>
 
 </body>

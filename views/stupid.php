@@ -43,7 +43,6 @@ div.main{
 <body>
 
     <div class="menu">
-    
         <a href="/home">Home </a>
         <a href="/login">Login </a>
         <a href="/register">Register </a>
@@ -52,27 +51,7 @@ div.main{
     </div>
 
     <div class="main">
-<?php
-if (isset($errs)){
-?>
-<ul>
-<?php
-    foreach ($errs as $err){
-?>
-    <li> Connection with server lost. Please try again later.(<?=$err ?>) </li>
-<?php
-    }
-?>
-</ul>
-<?php
-}
-?>
-
-        <form  method="POST">
-            <input type="text" name="login" placeholder="login">
-            <input type="password" name="password" placeholder="password">
-            <input type="submit" value="login">
-        </form>
+        <img src='http://cf.mp-cdn.net/56/e7/341a69a52dfdace8ffc671b0b743-is-the-wall-street-journal-stupid.jpg' alt='Some dumb pic' > 
 
     </div>
 
