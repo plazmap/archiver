@@ -6,14 +6,13 @@ if (isset($errs)){
 <?php
     foreach ($errs as $err){
 ?>
-    <li> Connection with server lost. Please try again later.(<?=$err ?>) </li>
+    <li> <?=$err ?> </li>
 <?php
     }
-?>
-</ul>
-<?php
 }
 ?>
+
+</ul>
 
 <form  method="POST">
     <input type="text" name="login" placeholder="login">

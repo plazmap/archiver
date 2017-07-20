@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
@@ -28,14 +30,17 @@ $app->get('/stupid', function ($request, $response, $args) {
     return $this->renderer->render($response, '/stupid.php', $args);
 });
 
-
-
-$app->get('/hello/{name}', function ($request, $response, $args) {
-    return $this->renderer->render($response, '/hello.php', $args);
+$app->get('/disconnect', function ($request, $response, $args) {
+    session_destroy();
+    return $response->withRedirect('/home');
 });
 
 $app->get('/login', function ($request, $response, $args) {
     return $this->renderer->render($response, '/login.php', $args);
+});
+
+$app->get('/account', function ($request, $response, $args) {
+    return $this->renderer->render($response, '/account.php', $args);
 });
 
 $app->post('/login', function ($request, $response, $args) {
@@ -54,10 +59,15 @@ $app->post('/login', function ($request, $response, $args) {
     $user = $stmt->fetch();
 
     if (password_verify($body['password'],$user['password'])){
-        echo 'yep';
-    }else{
-        echo 'nope';
+        $_SESSION['user']=$body['login'];
+        return $response->withRedirect('/main');
     }
+    return $this->renderer->render($response, '/login.php', ['errs' => 'Login incorrect. Please try again']); 
+
+});
+
+$app->get('/main', function ($request, $response, $args) {
+    return $this->renderer->render($response, '/main.php');
 });
 
 $app->get('/register', function ($request, $response, $args) {
@@ -112,9 +122,9 @@ $app->post('/register', function ($request, $response, $args) {
     if ($res === false) {
         return $this->renderer->render($response, '/register.php', ['errs' => [$this->database->lastErrorMsg()]]);
     }
-
-    return $this->renderer->render($response, '/register_ok.php', ['login'=>$body['login']]);
-
+     $_SESSION['user']=$body['login'];
+        return $response->withRedirect('/main');
+    
 
 });
 
