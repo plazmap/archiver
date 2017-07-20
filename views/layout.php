@@ -30,6 +30,17 @@ div.menu a{
     text-decoration: none;
 }
 
+div.menu button{
+    background-color: Transparent;
+    border: none;
+    cursor:pointer;    
+    color: #b3b3ff;
+    float: right
+    padding: 10px;
+    text-decoration: none;
+}
+
+
 div.main{
     margin-top: 50px;
     margin-left: 100px;
@@ -44,9 +55,16 @@ div.main{
     <div class="menu">
     
         <a href="/home">Home </a>
-        <a href="/login">Login </a>
-        <a href="/register">Register </a>
         <a href="/stupid">Something stupid</a>
+
+<?php if (!isset($_SESSION['user'])){ ?>
+        <a href="/register">Register </a>
+        <a href="/login">Login </a>
+<?php }else{ ?>
+        <a href="/account">My account </a>
+        <a href="/disconnect">Log out </a>
+<?php } ?>
+ 
 
     </div>
 
