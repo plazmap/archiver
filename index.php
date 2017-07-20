@@ -1,7 +1,6 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\PhpRenderer;
 
 require 'vendor/autoload.php';
 $cfg = require 'configuration.php';
@@ -10,7 +9,7 @@ $app = new \Slim\App();
 
 $container = $app->getContainer();
 $container['renderer'] = function() {
-    return new PhpRenderer('./views');
+    return new App\Renderer('./views');
 };
 $container['database'] = function () {
     global $cfg;
